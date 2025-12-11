@@ -11,8 +11,7 @@ defaults:
 
 on:
   pull_request:
-    branches:
-      - '**'
+    types: [opened, synchronize, reopened]
 
 jobs:
   placeholder:
