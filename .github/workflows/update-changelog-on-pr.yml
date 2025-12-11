@@ -43,4 +43,4 @@ jobs:
 
           git add CHANGELOG.md
           git commit -m "Update changelog for PR #${{ steps.pr.outputs.number }}" || echo "No changes to commit"
-          git push
+          git push origin HEAD:${{ github.head_ref }}
