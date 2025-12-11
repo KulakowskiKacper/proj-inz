@@ -1,24 +1,18 @@
 name: "[CI] Push"
 
-permissions:
-  content: read
-  packages: read
-  actions: read
-
 defaults:
   run:
     shell: pwsh
 
 on:
+  push:
+    branches: ["**"]     # run on push to ANY branch
   pull_request:
     types: [opened, synchronize, reopened]
 
 jobs:
   placeholder:
     runs-on: ubuntu-latest
-    permissions:
-      content: write
-      pull_request: write
 
     steps:
       - name: Checkout
