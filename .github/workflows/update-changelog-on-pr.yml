@@ -22,6 +22,7 @@ jobs:
       - name: Extract PR info
         id: pr
         run: |
+          echo "username=${{ github.event.pull_request.user.login }}" >> $GITHUB_OUTPUT
           echo "title=${{ github.event.pull_request.title }}" >> $GITHUB_OUTPUT
           echo "number=${{ github.event.pull_request.number }}" >> $GITHUB_OUTPUT
           echo "description<<EOF" >> $GITHUB_OUTPUT
@@ -33,7 +34,7 @@ jobs:
       - name: Update CHANGELOG.md
         run: |
           {
-            echo "## ${{ steps.pr.outputs.title }} (#${{ steps.pr.outputs.number }})"
+            echo "## ${{ steps.pr.outputs.username }} ${{ steps.pr.outputs.title }} (#${{ steps.pr.outputs.number }})"
             echo "**${{ steps.pr.outputs.date }}**"
             echo "${{ steps.pr.outputs.description }}"
             echo ""
