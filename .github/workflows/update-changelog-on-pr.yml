@@ -1,4 +1,4 @@
-name: Update Changelog
+name: CI Update Changelog on PR Open
 
 on:
   pull_request:
@@ -18,6 +18,12 @@ jobs:
         with:
           fetch-depth: 0
           ref: ${{ github.head_ref }}
+
+      - name: Check if description is empty
+        if: ${{ github.event.pull_request.body == '' }}
+        run: |
+          echo "Pull request description is required to update the changelog."
+          exit 1
 
       - name: Extract PR info
         id: pr
