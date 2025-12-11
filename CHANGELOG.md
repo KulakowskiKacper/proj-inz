@@ -1,3 +1,7 @@
+## Add .gitignore (#18)
+**2025-12-11**
+Add .gitignore file created by using generator https://www.toptal.com/developers/gitignore/
+
 ## test (#17)
 **2025-12-11**
 
