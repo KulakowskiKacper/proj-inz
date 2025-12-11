@@ -3,8 +3,6 @@ name: Update Changelog
 on:
   pull_request:
     types: [closed]
-  push:
-    branches: ["main"]
 
 permissions:
     contents: write
@@ -24,12 +22,19 @@ jobs:
         run: |
           echo "title=${{ github.event.pull_request.title }}" >> $GITHUB_OUTPUT
           echo "number=${{ github.event.pull_request.number }}" >> $GITHUB_OUTPUT
+          echo "description<<EOF" >> $GITHUB_OUTPUT
+          echo "${{ github.event.pull_request.body }}" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
           # Get date in YYYY-MM-DD
           echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
 
       - name: Update CHANGELOG.md
         run: |
-          echo "${{ steps.pr.outputs.date }} - ${{ steps.pr.outputs.title }} (#${{ steps.pr.outputs.number }})" >> CHANGELOG.md
+          {
+            echo "${{ steps.pr.outputs.date }} - ${{ steps.pr.outputs.title }} (#${{ steps.pr.outputs.number }})"
+            echo "${{ steps.pr.outputs.description }}"
+            echo ""
+          } | cat - CHANGELOG.md > temp && mv temp CHANGELOG.md
 
       - name: Commit changes
         run: |
