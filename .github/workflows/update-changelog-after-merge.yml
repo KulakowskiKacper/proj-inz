@@ -1,0 +1,35 @@
+name: Update Changelog
+
+on:
+  pull_request:
+    types: [closed]
+
+jobs:
+  update-changelog:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Extract PR info
+        id: pr
+        run: |
+          echo "title=${{ github.event.pull_request.title }}" >> $GITHUB_OUTPUT
+          echo "number=${{ github.event.pull_request.number }}" >> $GITHUB_OUTPUT
+          # Get date in YYYY-MM-DD
+          echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+
+      - name: Update CHANGELOG.md
+        run: |
+          echo "${{ steps.pr.outputs.date }} - ${{ steps.pr.outputs.title }} (#${{ steps.pr.outputs.number }})" >> CHANGELOG.md
+
+      - name: Commit changes
+        run: |
+          git config --local user.name "github-actions"
+          git config --local user.email "github-actions@github.com"
+
+          git add CHANGELOG.md
+          git commit -m "Update changelog for PR #${{ steps.pr.outputs.number }}" || echo "No changes to commit"
+          git push
