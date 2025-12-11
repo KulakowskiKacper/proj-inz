@@ -32,7 +32,7 @@ jobs:
         run: |
           {
             echo "## ${{ steps.pr.outputs.title }} (#${{ steps.pr.outputs.number }})"
-            echo "** ${{ steps.pr.outputs.date }} **"
+            echo "**${{ steps.pr.outputs.date }}**"
             echo "${{ steps.pr.outputs.description }}"
             echo ""
           } | cat - CHANGELOG.md > temp && mv temp CHANGELOG.md
