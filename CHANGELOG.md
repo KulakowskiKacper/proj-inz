@@ -1,6 +1,8 @@
-## KulakowskiKacper Workflow fix (#21)
+## KulakowskiKacper Changelog cleanup (#23)
 **2025-12-21**
-Workflow fix
+
+Check if new line works in workflow
+
 
 ## 2025.12.11
 * Initial commit
