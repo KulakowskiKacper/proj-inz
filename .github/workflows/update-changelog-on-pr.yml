@@ -2,7 +2,7 @@ name: CI Update Changelog on PR Open
 
 on:
   pull_request:
-    types: [opened]
+    types: [closed]
 
 permissions:
     contents: write
