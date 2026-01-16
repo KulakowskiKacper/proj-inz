@@ -19,6 +19,7 @@ jobs:
         with:
           fetch-depth: 0
           ref: ${{ github.event.pull_request.base.ref }}
+          token: ${{ secrets.PAT_TOKEN }}
 
       - name: Check if description is empty
         if: ${{ github.event.pull_request.body == '' }}
